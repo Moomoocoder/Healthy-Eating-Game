@@ -1,10 +1,37 @@
+body { margin: 0; overflow: hidden; background-color: #f8f9fa; }
+    #game-container {
+        position: relative;
+        width: 800px;
+        height: 600px;
+        margin: auto;
+        background-color: grey;
+    }
+    .pacman {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        background-color: yellow;
+        border-radius: 50%;
+    }
+    .food, .unhealthy-food {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+    }
+    #scoreboard {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        color: white;
+        font-size: 24px;
+    }
 .popup .overlay {
     position:fixed;
     top:0px;
     left:0px;
     width:100vw;
     height:100vh;
-    background:rgba(0,0,0,0.7);
+    background:grey;
     z-index:1;
     display:none;
 }  
@@ -30,7 +57,7 @@
     top:20px;
     width:30px;
     height:30px;
-    background:#222;
+    background:grey;
     color:#fff;
     font-size:25px;
     font-weight:600;
@@ -46,3 +73,4 @@
 .popup.active .content{
     transition:all 800ms ease-in-out;
     transform:translate(-50%,-50%) scale(1); }
+
