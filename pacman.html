@@ -4,37 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Healthy Pac-Man</title>
-    <style>
-        body { margin: 0; overflow: hidden; background-color: #f8f9fa; }
-        #game-container {
-            position: relative;
-            width: 800px;
-            height: 600px;
-            margin: auto;
-            background-color: #000;
-        }
-        .pacman {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            background-color: yellow;
-            border-radius: 50%;
-        }
-        .food, .unhealthy-food {
-            position: absolute;
-            width: 30px;
-            height: 30px;
-        }
-        #scoreboard {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            color: white;
-            font-size: 24px;
-        }
-    </style>
 </head>
 <body>
+    <div class="popup" id="popup-1">
+        <div class="overlay"></div>
+        <div class="content">
+            <div class="close-btn" onclick="togglePopup()">×</div>
+            <h1>Why are some unhealthy and healthy?</h1>
+            <h2> Fries: A lot of Fats and no vegetables (Read The book for more info about fats!). </h2>
+            <h2> Burger: It has a lot of chemicals and salt, which is not good! (Read more about salt in the book!) </h2>
+            <h2> Chocolate Bar: Some have too much sugar, which can give you a tummy-ache! (Read more about carbohyrdates (sugar) in the book!)</h2> 
+            <h2></h2>
+            </h2>
+            <!--<button onclick="acceptTerms()">Accept</button> -->
+            <!--<button onclick="declineTerms()">Decline</button> -->
+        </div>
+    </div>
+    <button onclick="togglePopup()">!!Click for Info!!</button>
+    
+</div>
+
     <div id="game-container">
         <div class="pacman" id="pacman" style="left: 0; top: 0;"></div>
         <!-- Add healthy food items -->
@@ -45,9 +34,19 @@
         <!-- Add unhealthy food items -->
         <img src="images/friedchicken.png" class="unhealthy-food" style="left: 300px; top: 100px;">
         <img src="images/chocolatebar.png" class="unhealthy-food" style="left: 500px; top: 400px;">
-        <img src="images/borgir.png" class="unhealthy-food" style="left: 700px; top: 200px;">
-        <div id="scoreboard">Score: 1</div>
+        <img src="images/Borgir.png" class="unhealthy-food" style="left: 700px; top: 200px;">
+        <div id="scoreboard">Score: 0</div>
     </div>
     <script src="script.js"></script>
+    <link rel="stylesheet" href="main.css">
+
+<script>let health = parseInt(this.getAttribute('data-health'))
+
+    if (score <= 0) {
+        endGame();
+    }
+
+    
+</script>
 </body>
-</html>
+</html> 
