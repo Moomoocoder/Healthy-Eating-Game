@@ -1,76 +1,94 @@
-body { margin: 0; overflow: hidden; background-color: #f8f9fa; }
-    #game-container {
-        position: relative;
-        width: 800px;
-        height: 600px;
-        margin: auto;
-        background-color: grey;
-    }
-    .pacman {
-        position: absolute;
-        width: 40px;
-        height: 40px;
-        background-color: yellow;
-        border-radius: 50%;
-    }
-    .food, .unhealthy-food {
-        position: absolute;
-        width: 30px;
-        height: 30px;
-    }
-    #scoreboard {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        color: white;
-        font-size: 24px;
-    }
-.popup .overlay {
-    position:fixed;
-    top:0px;
-    left:0px;
-    width:100vw;
-    height:100vh;
-    background:grey;
-    z-index:1;
-    display:none;
-}  
-.popup .content {
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%) scale(0);
-    background:#ffffff;
-    width:800px;
-    height:600px;
-    z-index:2;
-    text-align:center;
-    padding:20px;
-    box-sizing:border-box;
+body {
+    margin: 0;
+    overflow: hidden;
+    background-color: #f8f9fa;
+}
 
+#game-container {
+    position: relative;
+    width: 800px;
+    height: 600px;
+    margin: auto;
+    background-color: grey;
+}
+
+.pacman {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-color: yellow;
+    border-radius: 50%;
+}
+
+.food, .unhealthy-food {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+}
+
+#scoreboard {
+    position: absolute;
+    top: 5px;
+    left: 100px;
+    color: white;
+    font-size: 24px;
+}
+
+#heartImage {
+    position: absolute;
+    top: 10px;
+    left: 150px;
+    width: 50px;  /* Adjust width */
+    height: 50px; /* Adjust height */
+    color: white;
+}
+
+.popup .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: grey;
+    z-index: 1;
+    display: none;
+}
+
+.popup .content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: #ffffff;
+    width: 800px;
+    height: 600px;
+    z-index: 2;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .popup .close-btn {
-    cursor:pointer;
-    position:absolute;
-    right:20px;
-    top:20px;
-    width:30px;
-    height:30px;
-    background:grey;
-    color:#fff;
-    font-size:25px;
-    font-weight:600;
-    line-height:30px;
-    text-align:center;
-    border-radius:50%;
-
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 30px;
+    height: 30px;
+    background: grey;
+    color: #fff;
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 50%;
 }
 
 .popup.active .overlay {
-    display:block;
+    display: block;
 }
-.popup.active .content{
-    transition:all 800ms ease-in-out;
-    transform:translate(-50%,-50%) scale(1); }
 
+.popup.active .content {
+    transition: all 800ms ease-in-out;
+    transform: translate(-50%, -50%) scale(1);
+}
