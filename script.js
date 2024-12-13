@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const healthyFoods = document.querySelectorAll('.food');
     const unhealthyFoods = document.querySelectorAll('.unhealthy-food');
     const scoreboard = document.getElementById('scoreboard');
+    const livesContainer = document.getElementById('lives-container'); // Element to display lives
     const gameOverMessage = document.createElement('div');
     const winMessage = document.createElement('div');
     const restartButton = document.createElement('button');
@@ -39,6 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let posX = 0, posY = 0;
     const speed = 10;
     let score = 0;
+    let lives = 3; // Initial number of lives
     const container = document.getElementById('game-container');
 
     function movePacman(event) {
@@ -80,41 +82,35 @@ document.addEventListener('DOMContentLoaded', function() {
                 pacmanRect.top < foodRect.bottom &&
                 pacmanRect.bottom > foodRect.top) {
                 respawnFood(food);
-                updateScore(-1);
+                loseLife();
             }
         });
     }
 
     function updateScore(points) {
         score += points; // Update score based on points
-        scoreboard.innerText = 'Score: ' + score
-        if (score <=0) {
-            endGame('lost');
-        } else if (score >= 10) {
+        scoreboard.innerText = 'Score: ' + score;
+        if (score >= 20) {
             endGame('win');
         }
     }
 
+    function loseLife() {
+        lives -= 1; // Decrease lives by 1
+        updateHeartImage(); // Call to update heart image
+        if (lives <= 0) {
+            endGame('lost');
+        }
+    }
+
     function updateHeartImage() {
-        console.log("Updating heart image based on score:", score);
-        if (score <= 0) {
-            heartImage.src = 'images/heart_empty.png';
-            console.log("Set heart image to heart_empty.png");
-        } else if (score > 0 && score < 0.5) {
-            heartImage.src = 'images/heart_half.png';
-            console.log("Set heart image to half_heart.png");
-        } else if (score >= 0.5 && score <1.5 ) {
-            heartImage.src = 'images/heart_full.png';
-            console.log("Set heart image to heart_full.png");
-        } else if (score >= 2 && score <3 ) {
-            heartImage.src = 'images/two_hearts.png';
-            console.log("Set heart image to two hearts.png");
-        } else if (score >= 4 && score <5 ) {
-            heartImage.src = 'images/four_hearts.png';
-            console.log("Set heart image to four_hearts.png");
-        } else if (score >= 6 && score <7 ) {
-            heartImage.src = 'images/five_hearts.png';
-            console.log("Set heart image to five_hearts.png");
+        livesContainer.innerHTML = ''; // Clear the current lives display
+        for (let i = 0; i < lives; i++) {
+            const heartImage = document.createElement('img');
+            heartImage.src = 'images/heart_full.png'; // Path to the heart image
+            heartImage.width = 30;
+            heartImage.height = 30;
+            livesContainer.appendChild(heartImage);
         }
     }
 
@@ -133,9 +129,11 @@ document.addEventListener('DOMContentLoaded', function() {
         posX = 0;
         posY = 0;
         score = 0;
+        lives = 3; // Reset lives
         pacman.style.left = posX + 'px';
         pacman.style.top = posY + 'px';
         scoreboard.innerText = 'Score: ' + score;
+        updateHeartImage(); // Reset lives display
         gameOverMessage.style.display = 'none';
         winMessage.style.display = 'none';
         restartButton.style.display = 'none';
@@ -152,15 +150,6 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log(`Food respawned to (${newPosX}, ${newPosY})`);
     }
 
+    updateHeartImage(); // Initialize the lives display
     document.addEventListener('keydown', movePacman);
-});
-
-function togglePopup() {
-    document.getElementById("popup-1").classList.toggle("active");
-}
-
-document.addEventListener('keydown', function(event) {
-    if (event.key === "Escape") {
-        document.getElementById("popup-1").classList.toggle("active");
-    }
 });
