@@ -38,8 +38,8 @@ body {
     position: absolute;
     top: 10px;
     left: 1000px;
-    width: 50px;  /* Adjust width */
-    height: 50px; /* Adjust height */
+    width: 50px;
+    height: 50px;
     color: white;
 }
 
@@ -91,4 +91,24 @@ body {
 .popup.active .content {
     transition: all 800ms ease-in-out;
     transform: translate(-50%, -50%) scale(1);
+}
+
+#joystick-container {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    width: 100px;
+    height: 100px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+}
+
+#joystick {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    left: 50px;
+    top: 125px;
 }
