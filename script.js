@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
         livesContainer.innerHTML = ''; // Clear the current lives display
         for (let i = 0; i < lives; i++) {
             const heartImage = document.createElement('img');
-            heartImage.src = 'images/heart_full.png'; // Path to the heart image
+            heartImage.src = 'heart_full.png'; // Path to the heart image
             heartImage.width = 30;
             heartImage.height = 30;
             livesContainer.appendChild(heartImage);
