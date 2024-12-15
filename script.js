@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
         livesContainer.innerHTML = '';
         for (let i = 0; i < lives; i++) {
             const heartImage = document.createElement('img');
-            heartImage.src = 'images/heart_full.png';
+            heartImage.src = 'heart_full.png';
             heartImage.width = 40;
             heartImage.height = 40;
             livesContainer.appendChild(heartImage);
