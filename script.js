@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const healthyFoods = document.querySelectorAll('.food');
     const unhealthyFoods = document.querySelectorAll('.unhealthy-food');
     const scoreboard = document.getElementById('scoreboard');
-    const livesContainer = document.getElementById('lives-container'); // Element to display lives
+    const livesContainer = document.getElementById('lives-container');
     const gameOverMessage = document.createElement('div');
     const winMessage = document.createElement('div');
     const restartButton = document.createElement('button');
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let posX = 0, posY = 0;
     const speed = 10;
     let score = 0;
-    let lives = 3; // Initial number of lives
+    let lives = 3;
     const container = document.getElementById('game-container');
 
     function movePacman(event) {
@@ -54,9 +54,14 @@ document.addEventListener('DOMContentLoaded', function() {
             case 'd':
             case 'ArrowRight': posX = Math.min(posX + speed, container.clientWidth - pacman.clientWidth); break;
         }
+        updatePacmanPosition();
+        checkCollision();
+    }
+
+    function updatePacmanPosition() {
         pacman.style.left = posX + 'px';
         pacman.style.top = posY + 'px';
-        checkCollision();
+        console.log(`Pacman moved to (${posX}, ${posY})`);
     }
 
     function checkCollision() {
@@ -88,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function updateScore(points) {
-        score += points; // Update score based on points
+        score += points;
         scoreboard.innerText = 'Score: ' + score;
         if (score >= 20) {
             endGame('win');
@@ -96,18 +101,18 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function loseLife() {
-        lives -= 1; // Decrease lives by 1
-        updateHeartImage(); // Call to update heart image
+        lives -= 1;
+        updateHeartImage();
         if (lives <= 0) {
             endGame('lost');
         }
     }
 
     function updateHeartImage() {
-        livesContainer.innerHTML = ''; // Clear the current lives display
+        livesContainer.innerHTML = '';
         for (let i = 0; i < lives; i++) {
             const heartImage = document.createElement('img');
-            heartImage.src = 'heart_full.png'; // Path to the heart image
+            heartImage.src = 'images/heart_full.png';
             heartImage.width = 30;
             heartImage.height = 30;
             livesContainer.appendChild(heartImage);
@@ -115,7 +120,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function endGame(message) {
-        // Stop the game
         document.removeEventListener('keydown', movePacman);
         if (message === 'lost') {
             gameOverMessage.style.display = 'block';
@@ -129,11 +133,11 @@ document.addEventListener('DOMContentLoaded', function() {
         posX = 0;
         posY = 0;
         score = 0;
-        lives = 3; // Reset lives
+        lives = 3;
         pacman.style.left = posX + 'px';
         pacman.style.top = posY + 'px';
         scoreboard.innerText = 'Score: ' + score;
-        updateHeartImage(); // Reset lives display
+        updateHeartImage();
         gameOverMessage.style.display = 'none';
         winMessage.style.display = 'none';
         restartButton.style.display = 'none';
@@ -150,6 +154,33 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log(`Food respawned to (${newPosX}, ${newPosY})`);
     }
 
-    updateHeartImage(); // Initialize the lives display
+    updateHeartImage();
     document.addEventListener('keydown', movePacman);
+
+    const joystick = nipplejs.create({
+        zone: document.getElementById('joystick-container'),
+        mode: 'static',
+        position: { left: '50%', top: '50%' },
+        color: 'blue'
+    });
+
+    joystick.on('move', function (evt, data) {
+        const angle = data.angle.degree;
+        const distance = data.distance;
+        console.log(`Joystick moved: angle=${angle}, distance=${distance}`);
+        const joystickSpeed = Math.min(speed, distance / 10);  // Cap the joystick speed to match WASD speed
+        if (distance > 10) {
+            if (angle >= 45 && angle < 135) {
+                posY = Math.max(posY - joystickSpeed, 0);
+            } else if (angle >= 135 && angle < 225) {
+                posX = Math.max(posX - joystickSpeed, 0);
+            } else if (angle >= 225 && angle < 315) {
+                posY = Math.min(posY + joystickSpeed, container.clientHeight - pacman.clientHeight);
+            } else {
+                posX = Math.min(posX + joystickSpeed, container.clientWidth - pacman.clientWidth);
+            }
+            updatePacmanPosition();
+            checkCollision();
+        }
+    });
 });
